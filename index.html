@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+
+<script src="script.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="scriptindex2.js" defer></script>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="styleindex2.css">
+        <!--<title>Ranking, jQuery Survey Library Example</title><meta name="viewport" content="width=device-width"/>-->
+        <script src="https://unpkg.com/jquery"></script>
+        <script src="https://unpkg.com/survey-jquery@1.9.22/survey.jquery.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./index.css"></head>
+    <body class="container">
+        <h1 id="title">
+            Preference elicitation questionnaire
+        </h1>
+        <div class="row">
+            <div class="col-md-6" id="description">
+                A decision problem is not one-dimensional and straightforward. The reality is that a decision problem is multifaceted and complex; it often involves multiple criteria, preference rankings and selection. In day-to-day life, we people often make decisions based on intuition and without having a real idea why a decision alternative is selected. <br>
+ <br> However, complex decision-making will entail some conflict between several goals, objectives, or criteria.
+In this questionnaire, you will be asked to provide your preferences in a multi-criteria decision situation. Below you will be presented with a decision-making situation where you will get the chance to interact with a ratio weight elicitation method called SMART, a rank order weight elicitation method, and the analytical hierarchy process (AHP).  <br>
+ <br>
+In this study, we aim to evaluate how these weight elicitation methods are perceived by examining aspects such as prior knowledge of decision analysis, cognitive demand of the method, time efficiency, stability of preferences and subject information usability. 
+            </div> 
+            <div  class="col-md-6" id="initialchoice">
+                We start off with this: Imagine that you are deciding on your next car purchase. Below you will see different alternatives with different stats on the listed characteristics. Choose the alternative that you find most appealing:
+                <img src="Car alternatives.png" width="100%" height="500" id="allchoices" />
+                <br>
+                <div id = "alternativeone">
+                    Car A
+                    <input type="radio" name="alternative1" value="1"/>
+                    Car B
+                    <input type="radio"  name="alternative1" value="2"/>
+                    Car C
+                    <input type="radio"  name="alternative1" value="3"/>
+                    Car D
+                    <input type="radio" name="alternative1" value="4"/>
+                </div>
+                <div id = "erroralternativeone"></div>
+                <br>
+            </div>
+</div>
+        <h1 id="titlesmart">Ratio weight elicitation method (SMART)</h1>
+            <h2 id="smartdescription">
+                The simple Multi-attribute Rating Technique (SMART) is an uncomplicated ratio weight elicitation technique in which a decision-maker identifies how important each of the criteria are by assigning greater values for more important criteria.
+ 
+Imagine that you are deciding on your next car purchase. When buying a car, you consider different characteristics of cars before making the purchase. For the presented criteria below, assign each of the criterium a value between 1 to 100.
+            </h2>
+                <div class="row">
+                <h3 class="col-md-6">
+                   <label> Criterium: <span class="bg-hcolor">Safety</span></label>
+                    <input placeholder="Criterium: Safety" type="text" class = "textfield" id="smart crit safety" name="smart crit safety" onkeypress="return isNumber(event)" onkeyup="this.value = minmax(this.value, 1, 100)"  /> <!--<br><br>-->
+                </h3>
+                <h3 class="col-md-6">
+                      <label> Criterium: <span class="bg-hcolor">Maximum Speed</span></label>
+                    <input placeholder="Criterium: Maximum Speed" type="text" class = "textfield" id="smart crit speed" name="smart crit speed" onkeypress="return isNumber(event)" onkeyup="this.value = minmax(this.value, 1, 100)" /> <!--<br><br>-->
+                </h3>
+                <h3 class="col-md-6">                    
+                      <label> Criterium: <span class="bg-hcolor">Fuel Consumption</span></label>
+                    <input placeholder="Criterium: Fuel Consumption" type="text" class = "textfield" id="smart crit consumption" name="smart crit consumption" onkeypress="return isNumber(event)" onkeyup="this.value = minmax(this.value, 1, 100)"/> <!--<br><br>-->
+                </h3>
+                <h3 class="col-md-6">
+                       <label>Criterium: <span class="bg-hcolor">Luggage Capacity</span></label>
+                    <input placeholder="Criterium: Luggage Capacity" type="text" class = "textfield" id="smart crit luggage" name="smart crit luggage" onkeypress="return isNumber(event)" onkeyup="this.value = minmax(this.value, 1, 100)"/> <!--<br><br>-->
+                </h3>
+                <h3 class="col-md-6">
+                      <label> Criterium: <span class="bg-hcolor">Passenger Capacity</span></label>
+                    <input placeholder="Criterium: Passenger Capacity" type="text" class = "textfield" id="smart crit passenger" name="smart crit passenger" onkeypress="return isNumber(event)" onkeyup="this.value = minmax(this.value, 1, 100)"/> <!--<br><br>-->
+                </h3>
+                <h3 class="col-md-6">
+                      <label> Criterium: <span class="bg-hcolor">Mileage</span></label>
+                    <input placeholder="Criterium: Mileage" type="text" class = "textfield" id="smart crit mileage" name="smart crit mileage" onkeypress="return isNumber(event)" onkeyup="this.value = minmax(this.value, 1, 100)"/> <!--<br><br>-->
+                </h3>
+            </div>
+            </h2>
+            <div id = "errorSMARTcrit"></div>
+            <br>
+            <br>
+            <br>
+            <h2 id="descsafety">
+                Below you will find a table with four alternatives named car A, car B, car C, and car D for a certain criterium. Assign each of the car alternatives from 1 (not appealing) to 4 (very appealing) based on the <span class="bg-hcolor">criterium of safety.</span>
+            </h2>
+            <h2>
+                <img src="EURO NCAP.png" id="safetypicsmart" width="500" height="150" />
+                <h4 id="appealsmart">
+                    <span>1  </span>                 <span>   2      </span>             <span>  3 </span>               <span>      4 </span>
+                </h4>
+
+                <h3 id="smartlistsafety">
+                    Car A
+                    <input type="radio" name="editListA1" id="editListA1" value="1"></input>
+                    <input type="radio" name="editListA1" id="editListA1" value="2"></input>
+                    <input type="radio" name="editListA1" id="editListA1" value="3"></input>
+                    <input type="radio" name="editListA1" id="editListA1" value="4"></input>
+                    <br>
+                    Car B
+                    <input type="radio" name="editListB1" value="1">
+                    <input type="radio" name="editListB1" value="2">
+                    <input type="radio" name="editListB1" value="3">
+                    <input type="radio" name="editListB1" value="4">
+                    <br>
+                    Car C
+                    <input type="radio" name="editListC1" value="1"/>
+                    <input type="radio" name="editListC1" value="2"/>
+                    <input type="radio" name="editListC1" value="3"/>
+                    <input type="radio" name="editListC1" value="4"/>
+                    <br>
+                    Car D
+                    <input type="radio" name="editListD1" value="1"/>
+                    <input type="radio" name="editListD1" value="2"/>
+                    <input type="radio" name="editListD1" value="3"/>
+                    <input type="radio" name="editListD1" value="4"/>
+                </h3>    
+            </h2>
+            <br>
+            <div id = "errorSMARTsafe"></div>
+            <h2 id="speeddesc">
+                Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats for a certain criterium. Assign each of the car alternatives from 1 (not appealing) to 4 (very appealing) based on the <span class="bg-hcolor">criterium of Maximum speed.</span>
+            </h2>
+            <div>    
+               
+                <h4 style="text-align: center;">
+                    1 (Not appealing)                     2 (Less appealing)                    3 (Appealing)                    4 (Very appealing)
+                </h4>
+                <img src="Maximum speed.png" id="safetypicsmart" width="500" height="150" />
+                <h4 id="appealsmart">
+                    <span>1  </span>                 <span>   2      </span>             <span>  3 </span>               <span>      4 </span>
+                </h4>
+
+                <h3 id="smartlistsafety">
+                    Car A
+                    <input type="radio" name="editListA2" id="editListA1" value="1"></input>
+                    <input type="radio" name="editListA2" id="editListA1" value="2"></input>
+                    <input type="radio" name="editListA2" id="editListA1" value="3"></input>
+                    <input type="radio" name="editListA2" id="editListA1" value="4"></input>
+                    <br>
+                    Car B
+                    <input type="radio" name="editListB2" value="1">
+                    <input type="radio" name="editListB2" value="2">
+                    <input type="radio" name="editListB2" value="3">
+                    <input type="radio" name="editListB2" value="4">
+                    <br>
+                    Car C
+                    <input type="radio" name="editListC2" value="1"/>
+                    <input type="radio" name="editListC2" value="2"/>
+                    <input type="radio" name="editListC2" value="3"/>
+                    <input type="radio" name="editListC2" value="4"/>
+                    <br>
+                    Car D
+                    <input type="radio" name="editListD2" value="1"/>
+                    <input type="radio" name="editListD2" value="2"/>
+                    <input type="radio" name="editListD2" value="3"/>
+                    <input type="radio" name="editListD2" value="4"/>
+                </h3>    
+            </div>
+            <div id = "errorSMARTspeed"></div>
+            <h2>
+<h2 id="speeddesc">
+                Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats based on each of the criteriums. Assign each of the car alternatives from 1 (not appealing) to 4 (very appealing) based on the <span class="bg-hcolor">criterium of Fuel consumption.</span>
+            </h2>
+                <h4 id="appealsmart">
+                    1 (Not appealing)                     2 (Less appealing)                    3 (Appealing)                    4 (Very appealing)
+
+                </h4>
+            <img src="Fuel consumption.png" id="safetypicsmart" width="500" height="150" />
+                <h4 id="appealsmart">
+                    <span>1  </span>                 <span>   2      </span>             <span>  3 </span>               <span>      4 </span>
+                </h4>
+
+                <h3 id="smartlistsafety">
+                    Car A
+                    <input type="radio" name="editListA3" id="editListA1" value="1"></input>
+                    <input type="radio" name="editListA3" id="editListA1" value="2"></input>
+                    <input type="radio" name="editListA3" id="editListA1" value="3"></input>
+                    <input type="radio" name="editListA3" id="editListA1" value="4"></input>
+                    <br>
+                    Car B
+                    <input type="radio" name="editListB3" value="1">
+                    <input type="radio" name="editListB3" value="2">
+                    <input type="radio" name="editListB3" value="3">
+                    <input type="radio" name="editListB3" value="4">
+                    <br>
+                    Car C
+                    <input type="radio" name="editListC3" value="1"/>
+                    <input type="radio" name="editListC3" value="2"/>
+                    <input type="radio" name="editListC3" value="3"/>
+                    <input type="radio" name="editListC3" value="4"/>
+                    <br>
+                    Car D
+                    <input type="radio" name="editListD3" value="1"/>
+                    <input type="radio" name="editListD3" value="2"/>
+                    <input type="radio" name="editListD3" value="3"/>
+                    <input type="radio" name="editListD3" value="4"/>
+                </h3> 
+            </h2>
+            <div id = "errorSMARTfuel"></div>
+            <h2  id="speeddesc">
+                Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats based on each of the criteriums. Assign each of the car alternatives from 1 (not appealing) to 4 (very appealing) based on the <span class="bg-hcolor">criterium of Luggage capacity.</span>
+            </h2>
+               
+                    <h4 id="appealsmart">
+                    1 (Not appealing)                     2 (Less appealing)                    3 (Appealing)                    4 (Very appealing)
+
+                </h4>
+            <img src="Luggage capacity.png" id="safetypicsmart" width="500" height="150" />
+                <h4 id="appealsmart">
+                    <span>1  </span>                 <span>   2      </span>             <span>  3 </span>               <span>      4 </span>
+                </h4>
+
+                <h3 id="smartlistsafety">
+                    Car A
+                    <input type="radio" name="editListA4" id="editListA1" value="1"></input>
+                    <input type="radio" name="editListA4" id="editListA1" value="2"></input>
+                    <input type="radio" name="editListA4" id="editListA1" value="3"></input>
+                    <input type="radio" name="editListA4" id="editListA1" value="4"></input>
+                    <br>
+                    Car B
+                    <input type="radio" name="editListB4" value="1">
+                    <input type="radio" name="editListB4" value="2">
+                    <input type="radio" name="editListB4" value="3">
+                    <input type="radio" name="editListB4" value="4">
+                    <br>
+                    Car C
+                    <input type="radio" name="editListC4" value="1"/>
+                    <input type="radio" name="editListC4" value="2"/>
+                    <input type="radio" name="editListC4" value="3"/>
+                    <input type="radio" name="editListC4" value="4"/>
+                    <br>
+                    Car D
+                    <input type="radio" name="editListD4" value="1"/>
+                    <input type="radio" name="editListD4" value="2"/>
+                    <input type="radio" name="editListD4" value="3"/>
+                    <input type="radio" name="editListD4" value="4"/>
+                </h3> 
+                <div id = "errorSMARTluggage"></div>
+
+                    <h2  id="speeddesc">
+                Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats based on each of the criteriums. Assign each of the car alternatives from 1 (not appealing) to 4 (very appealing) based on the <span class="bg-hcolor">criterium of Passenger capacity.</span>
+            </h2>
+               
+                    <h4 id="appealsmart">
+                    1 (Not appealing)                     2 (Less appealing)                    3 (Appealing)                    4 (Very appealing)
+
+                </h4>
+            <img src="Passenger capacity.png" id="safetypicsmart" width="500" height="150" />
+                <h4 id="appealsmart">
+                    <span>1  </span>                 <span>   2      </span>             <span>  3 </span>               <span>      4 </span>
+                </h4>
+
+                <h3 id="smartlistsafety">
+                    Car A
+                    <input type="radio" name="editListA5" value="1"></input>
+                    <input type="radio" name="editListA5"  value="2"></input>
+                    <input type="radio" name="editListA5"  value="3"></input>
+                    <input type="radio" name="editListA5" value="4"></input>
+                    <br>
+                    Car B
+                    <input type="radio" name="editListB5" value="1">
+                    <input type="radio" name="editListB5" value="2">
+                    <input type="radio" name="editListB5" value="3">
+                    <input type="radio" name="editListB5" value="4">
+                    <br>
+                    Car C
+                    <input type="radio" name="editListC5" value="1"/>
+                    <input type="radio" name="editListC5" value="2"/>
+                    <input type="radio" name="editListC5" value="3"/>
+                    <input type="radio" name="editListC5" value="4"/>
+                    <br>
+                    Car D
+                    <input type="radio" name="editListD5" value="1"/>
+                    <input type="radio" name="editListD5" value="2"/>
+                    <input type="radio" name="editListD5" value="3"/>
+                    <input type="radio" name="editListD5" value="4"/>
+                </h3> 
+                <div id = "errorSMARTpassenger"></div>
+
+            <h2 id="speeddesc">
+                Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats based on each of the criteriums. Assign each of the car alternatives from 1 (not appealing) to 4 (very appealing) based on the <span class="bg-hcolor">criterium of Mileage.</span>
+</h2>
+                  <h4 id="appealsmart">
+                    1 (Not appealing)                     2 (Less appealing)                    3 (Appealing)                    4 (Very appealing)
+
+                </h4>
+            <img src="Mileage.png" id="safetypicsmart" width="500" height="150" />
+                <h4 id="appealsmart">
+                    <span>1  </span>                 <span>   2      </span>             <span>  3 </span>               <span>      4 </span>
+                </h4>
+
+                <h3 id="smartlistsafety">
+                    Car A
+                    <input type="radio" name="editListA6" id="editListA1" value="1"></input>
+                    <input type="radio" name="editListA6" id="editListA1" value="2"></input>
+                    <input type="radio" name="editListA6" id="editListA1" value="3"></input>
+                    <input type="radio" name="editListA6" id="editListA1" value="4"></input>
+                    <br>
+                    Car B
+                    <input type="radio" name="editListB6" value="1">
+                    <input type="radio" name="editListB6" value="2">
+                    <input type="radio" name="editListB6" value="3">
+                    <input type="radio" name="editListB6" value="4">
+                    <br>
+                    Car C
+                    <input type="radio" name="editListC6" value="1"/>
+                    <input type="radio" name="editListC6" value="2"/>
+                    <input type="radio" name="editListC6" value="3"/>
+                    <input type="radio" name="editListC6" value="4"/>
+                    <br>
+                    Car D
+                    <input type="radio" name="editListD6" value="1"/>
+                    <input type="radio" name="editListD6" value="2"/>
+                    <input type="radio" name="editListD6" value="3"/>
+                    <input type="radio" name="editListD6" value="4"/>
+                </h3>
+                <div id = "errorSMARTmileage"></div>
+
+     <h1 id="titlesmart"> Analytical Hierarchy Process (AHP)</h1>
+        <h2 id="speeddesc">
+            
+The AHP is a pairwise comparison method meaning that in this method, alternatives are compared pairwise. This systematic pairwise comparison method can be used to elicit preferences, by the decision-maker first choosing between two criteria. Using a semantic scale (e.g., “less important”, “important”, “equally important”, “more important” etc), the decision-maker can determine the strength of the ordering (I.e., how much more important the first criterion is compared to the other). These steps are then repeated for the remaining criterion.
+
+        </h2>
+        <h2 id="speeddesc">
+            Imagine that you are deciding on your next car purchase. When buying a car, you consider different characteristics of cars before making the purchase. Using a semantic scale of importance make pairwise comparisons of the following criteria below based on your own preferences.
+        </h2>
+        <div class="top-h">
+<p>Much more important</p><p>Equally important</p><p>Much more important</p>
+</div>
+            <h3 class="p-u">
+               <p class="p-r"> Safety</p>
+               <p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritsafespeed" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafespeed" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafespeed" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafespeed" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafespeed"value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafespeed" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafespeed" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafespeed" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafespeed" value="9"/>
+                </label>
+                </p>
+               <p class="p-r"> Maximum speed</p>
+            </h3>     
+            <h3 class="p-u">
+                <p class="p-r">Safety</p>
+                <p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritsafefuel" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafefuel" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafefuel" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafefuel" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafefuel" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafefuel" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafefuel" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafefuel" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafefuel" value="9"/>
+                </label>
+            </p>
+            <p class="p-r">
+                Fuel consumption
+            </p>
+            </h3>    
+            <h3 class="p-u">
+            	<p class="p-r">
+                Safety
+            </p>
+            <p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritsafeluggage" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafeluggage" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafeluggage" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafeluggage" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafeluggage" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafeluggage" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafeluggage" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafeluggage" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafeluggage" value="9"/>
+                </label>
+            </p>
+            <p class="p-r">
+                Luggage capacity
+            </p>
+            </h3>
+            <h3 class="p-u">
+            	<p class="p-r">
+                Safety
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritsafepassenger" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafepassenger" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafepassenger" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafepassenger" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafepassenger" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafepassenger" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafepassenger" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafepassenger" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafepassenger" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Passenger capacity
+            </p>
+            </h3>
+            <h3 class="p-u">
+            		<p class="p-r">
+                Safety
+            </p>
+            	<p class="p-t">
+
+                <label>
+                    <input type="radio" name="AHPcritsafemileage" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafemileage" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafemileage" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafemileage" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafemileage" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafemileage" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafemileage" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafemileage" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritsafemileage" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Mileage
+            </p>
+            </h3>
+            <h3 class="p-u">
+            		<p class="p-r">
+                Maximum speed
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritspeedfuel" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedfuel" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedfuel" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedfuel" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedfuel" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedfuel" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedfuel" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedfuel" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedfuel" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Fuel consumption
+            </p>
+            </h3>        
+            <h3 class="p-u">
+            		<p class="p-r">
+                Maximum speed
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritspeedluggage" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedluggage" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedluggage" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedluggage" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedluggage" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedluggage" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedluggage" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedluggage" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedluggage" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Luggage capacity
+            </p>
+            </h3>     
+            <h3 class="p-u">
+            		<p class="p-r">
+                Maximum speed
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritspeedpassenger" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedpassenger" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedpassenger" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedpassenger" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedpassenger" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedpassenger" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedpassenger" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedpassenger" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedpassenger" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Passenger capacity
+            </p>
+            </h3> 
+            <h3 class="p-u">
+            		<p class="p-r">
+                Maximum speed
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritspeedmileage" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedmileage" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedmileage" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedmileage" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedmileage" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedmileage" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedmileage" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedmileage" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritspeedmileage" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Mileage
+            </p>
+            </h3> 
+            <h3 class="p-u">
+            		<p class="p-r">
+                Fuel consumption
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritfuelluggage" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelluggage" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelluggage" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelluggage" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelluggage" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelluggage" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelluggage" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelluggage" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelluggage" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+
+                Luggage capacity
+            </p>
+            </h3> 
+            <h3 class="p-u">
+            		<p class="p-r">
+                Fuel consumption
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritfuelpassenger" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelpassenger" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelpassenger" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelpassenger" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelpassenger" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelpassenger" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelpassenger" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelpassenger" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelpassenger" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Passenger capacity
+            </p>
+            </h3> 
+            <h3 class="p-u">
+            		<p class="p-r">
+                Fuel consumption
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritfuelmileage" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelmileage" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelmileage" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelmileage" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelmileage" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelmileage" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelmileage" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelmileage" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritfuelmileage" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Mileage
+            </p>
+            </h3>
+            <h3 class="p-u">
+            		<p class="p-r">
+                Luggage capacity
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritluggagepassenger" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagepassenger" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagepassenger" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagepassenger" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagepassenger" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagepassenger" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagepassenger" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagepassenger" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagepassenger" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Passenger capacity
+            </p>
+            </h3>    
+            <h3 class="p-u">
+            		<p class="p-r">
+                Luggage capacity
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritluggagemileage" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagemileage" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagemileage" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagemileage" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagemileage" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagemileage" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagemileage" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagemileage" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritluggagemileage" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Mileage
+            </p>
+            </h3>
+            <h3 class="p-u">
+            		<p class="p-r">
+                Passenger capacity
+            </p>
+            	<p class="p-t">
+                <label>
+                    <input type="radio" name="AHPcritpassengermileage" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritpassengermileage" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritpassengermileage" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritpassengermileage" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritpassengermileage" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritpassengermileage" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritpassengermileage" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritpassengermileage" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPcritpassengermileage" value="9"/>
+                </label>
+            </p>
+            	<p class="p-r">
+                Mileage
+            </p>
+            </h3>
+           
+        </h2>
+        <div id="ahpcriterror"></div>
+        <h2>
+            Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats for a certain criterium. Assign each of the car alternatives on a semantic scale based on the <span class="bg-hcolor">criterium of Safety</span>
+            <br>
+            <br>
+             <div class="top-h">
+<p>Much more important</p><p>Equally important</p><p>Much more important</p>
+</div>
+            <h3>
+                Car A: 4/5 stars (EURO NCAP)
+                <label>
+                    <input type="radio" name="AHPsafeAB" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAB" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAB" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAB" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAB" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAB" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAB" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAB" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAB" value="9"/>
+                </label>
+                Car B: 2/5 stars (EURO NCAP)
+            </h3>  
+            <h3>
+                Car A: 4/5 stars (EURO NCAP)
+                <label>
+                    <input type="radio" name="AHPsafeAC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAC" value="9"/>
+                </label>
+                Car C: 3/5 stars (EURO NCAP)
+            </h3> 
+            <h3>
+                Car A: 4/5 stars (EURO NCAP)
+                <label>
+                    <input type="radio" name="AHPsafeAD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeAD" value="9"/>
+                </label>
+                Car D: 2.5/5 stars (EURO NCAP)            
+            </h3> 
+            <h3>
+                Car B: 2/5 stars (EURO NCAP)
+                <label>
+                    <input type="radio" name="AHPsafeBC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBC" value="9"/>
+                </label>
+                Car C: 3.5/5 stars (EURO NCAP)            </h3>
+            <h3>
+                Car B: 2/5 stars (EURO NCAP)
+                <label>
+                    <input type="radio" name="AHPsafeBD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeBD" value="9"/>
+                </label>
+                Car D: 2.5/5 stars (EURO NCAP)            </h3>        
+            <h3>
+                Car C: 3.5/5 stars (EURO NCAP)                <label>
+                    <input type="radio" name="AHPsafeCD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeCD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeCD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeCD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeCD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeCD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeCD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeCD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPsafeCD" value="9"/>
+                </label>
+                Car D: 2.5/5 stars (EURO NCAP)            </h3>
+        </h2>
+        <div id="ahpsafeerror"></div>
+        <h2>
+            Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats for a certain criterium. Assign each of the car alternatives on a semantic scale based on the <span class="bg-hcolor">criterium of Maximum speed  </span>          <h3>
+            
+            	 <div class="top-h">
+<p>Much more important</p><p>Equally important</p><p>Much more important</p>
+</div>
+                Car A: 240 km/h
+                <label>
+                    <input type="radio" name="AHPspeedAB" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAB" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAB" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAB" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAB" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAB" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAB" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAB" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAB" value="9"/>
+                </label>
+                Car B: 360 km/h            </h3>  
+            <h3>
+                Car A: 240 km/h
+                <label>
+                    <input type="radio" name="AHPspeedAC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAC" value="9"/>
+                </label>
+                Car C: 160 km/h
+            </h3> 
+            <h3>
+                Car A: 240 km/h
+                <label>
+                    <input type="radio" name="AHPspeedAD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedAD" value="9"/>
+                </label>
+                Car D: 280 km/h
+            </h3> 
+            <h3>
+                Car B: 360 km/h                <label>
+                    <input type="radio" name="AHPspeedBC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBC" value="9"/>
+                </label>
+                Car C: 160 km/h
+            </h3>
+            <h3>
+                Car B: 360 km/h                <label>
+                    <input type="radio" name="AHPspeedBD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedBD" value="9"/>
+                </label>
+                Car D: 280 km/h
+            </h3>        
+            <h3>
+                Car C: 160 km/h
+                <label>
+                    <input type="radio" name="AHPspeedCD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedCD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedCD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedCD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedCD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedCD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedCD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedCD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPspeedCD" value="9"/>
+                </label>
+                Car D: 280 km/h
+            </h3>
+        </h2>
+        <div id="ahpspeederror"></div>
+        <h2>
+            Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats for a certain criterium. Assign each of the car alternatives on a semantic scale based on the <span class="bg-hcolor">criterium of Fuel consumption  </span>
+            <br>        <br>   <div class="top-h">
+<p>Much more important</p><p>Equally important</p><p>Much more important</p>
+</div>
+            <h3>
+                Car A: 40L /100 KM
+                <label>
+                    <input type="radio" name="AHPfuelAB" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAB" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAB" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAB" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAB" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAB" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAB" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAB" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAB" value="9"/>
+                </label>
+                Car B: 25L /100 KM            </h3>  
+            <h3>
+                Car A: 40L /100 KM
+                <label>
+                    <input type="radio" name="AHPfuelAC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAC" value="9"/>
+                </label>
+                Car C: 5L /100 KM            </h3> 
+            <h3>
+                Car A: 40L /100 KM
+                <label>
+                    <input type="radio" name="AHPfuelAD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelAD" value="9"/>
+                </label>
+                Car D: 100L /100 KM
+            </h3> 
+            <h3>
+                Car B: 25L /100 KM                <label>
+                    <input type="radio" name="AHPfuelBC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBC" value="9"/>
+                </label>
+                Car C: 5L /100 KM            </h3>
+            <h3>
+                Car B: 25L /100 KM                <label>
+                    <input type="radio" name="AHPfuelBD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelBD" value="9"/>
+                </label>
+                Car D: 100L /100 KM
+            </h3>        
+            <h3>
+                Car C: 5L /100 KM                <label>
+                    <input type="radio" name="AHPfuelCD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelCD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelCD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelCD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelCD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelCD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelCD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelCD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPfuelCD" value="9"/>
+                </label>
+                Car D: 100L /100 KM
+            </h3>
+        </h2>
+        <div id="ahpfuelerror"></div>
+
+        <h2>
+            Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats for a certain criterium. Assign each of the car alternatives on a semantic scale based on the <span class="bg-hcolor">criterium of Luggage capacity    </span>        <h3>
+            	 <div class="top-h">
+<p>Much more important</p><p>Equally important</p><p>Much more important</p>
+</div>
+                Car A: 600 Litre
+                <label>
+                    <input type="radio" name="AHPluggageAB" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAB" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAB" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAB" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAB" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAB" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAB" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAB" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAB" value="9"/>
+                </label>
+                Car B: 100 Litre
+            </h3>  
+            <h3>
+                Car A: 600 Litre
+                <label>
+                    <input type="radio" name="AHPluggageAC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAC" value="9"/>
+                </label>
+                Car C: 400 Litre
+            </h3> 
+            <h3>
+                Car A: 600 Litre
+                <label>
+                    <input type="radio" name="AHPluggageAD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageAD" value="9"/>
+                </label>
+                Car D: 900 Litre            </h3> 
+            <h3>
+                Car B: 100 Litre
+                <label>
+                    <input type="radio" name="AHPluggageBC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBC" value="9"/>
+                </label>
+                Car C: 400 Litre
+            </h3>
+            <h3>
+                Car B: 100 Litre
+                <label>
+                    <input type="radio" name="AHPluggageBD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageBD" value="9"/>
+                </label>
+                Car D: 900 Litre            </h3>        
+            <h3>
+                Car C: 400 Litre
+                <label>
+                    <input type="radio" name="AHPluggageCD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageCD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageCD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageCD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageCD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageCD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageCD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageCD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPluggageCD" value="9"/>
+                </label>
+                Car D: 900 Litre            </h3>
+        </h2>  
+        <div id="ahpluggageerror"></div>
+
+        <h2>
+            Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats for a certain criterium. Assign each of the car alternatives on a semantic scale based on the <span class="bg-hcolor">criterium of Passenger capacity</span>
+            <br>
+            <br>
+             <div class="top-h">
+<p>Much more important</p><p>Equally important</p><p>Much more important</p>
+</div>
+            <h3>    
+            Car A: 4 passengers
+                <label>
+                    <input type="radio" name="AHPpassengerAB" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAB" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAB" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAB" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAB" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAB" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAB" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAB" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAB" value="9"/>
+                </label>
+                Car B: 1 passengers
+            </h3>  
+            <h3>
+                Car A: 4 passengers
+                <label>
+                    <input type="radio" name="AHPpassengerAC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAC" value="9"/>
+                </label>
+                Car C: 6 passengers
+            </h3> 
+            <h3>
+                Car A: 4 passengers
+                <label>
+                    <input type="radio" name="AHPpassengerAD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerAD" value="9"/>
+                </label>
+                Car D: 8 passengers
+            </h3> 
+            <h3>
+                Car B: 1 passengers
+                <label>
+                    <input type="radio" name="AHPpassengerBC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBC" value="9"/>
+                </label>
+                Car C: 6 passengers
+            </h3>
+            <h3>
+                Car B: 1 passengers
+                <label>
+                    <input type="radio" name="AHPpassengerBD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerBD" value="9"/>
+                </label>
+                Car D: 8 passengers
+            </h3>        
+            <h3>
+                Car C: 6 passengers
+                <label>
+                    <input type="radio" name="AHPpassengerCD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerCD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerCD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerCD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerCD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerCD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerCD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerCD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPpassengerCD" value="9"/>
+                </label>
+                Car D: 8 passengers
+            </h3>
+        </h2>  
+        <div id="ahppassengererror"></div>
+ 
+        <h2>
+            Below you will find a table with four alternatives named car A, car B, car C, and car D and their stats for a certain criterium. Assign each of the car alternatives on a semantic scale based on the <span class="bg-hcolor">criterium of Mileage</span><br>
+            <br>
+             <div class="top-h">
+<p>Much more important</p><p>Equally important</p><p>Much more important</p>
+</div>
+            <h3>
+            Car A: 350 000 KM                <label>
+                    <input type="radio" name="AHPmileageAB" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAB" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAB" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAB" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAB" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAB" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAB" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAB" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAB" value="9"/>
+                </label>
+                Car B: 100 000 KM
+            </h3>  
+            <h3>
+                Car A: 350 000 KM                <label>
+                    <input type="radio" name="AHPmileageAC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAC" value="9"/>
+                </label>
+                Car C: 250 000 KM            </h3> 
+            <h3>
+                Car A: 350 000 KM                <label>
+                    <input type="radio" name="AHPmileageAD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageAD" value="9"/>
+                </label>
+                Car D: 450 000 KM            </h3> 
+            <h3>
+                Car B: 100 000 KM
+                <label>
+                    <input type="radio" name="AHPmileageBC" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBC" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBC" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBC" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBC" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBC" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBC" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBC" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBC" value="9"/>
+                </label>
+                Car C: 250 000 KM            </h3>
+            <h3>
+                Car B: 100 000 KM
+                <label>
+                    <input type="radio" name="AHPmileageBD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageBD" value="9"/>
+                </label>
+                Car D: 450 000 KM            </h3>        
+            <h3>
+                Car C: 250 000 KM                <label>
+                    <input type="radio" name="AHPmileageCD" value="1/9"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageCD" value="1/7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageCD" value="1/5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageCD" value="1/3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageCD" value="1"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageCD" value="3"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageCD" value="5"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageCD" value="7"/>
+                </label>
+                <label>
+                    <input type="radio" name="AHPmileageCD" value="9"/>
+                </label>
+                Car D: 450 000 KM            </h3>
+        </h2>  
+        <div id="ahpmileageerror"></div>
+     
+        <div id="surveyElement" style="display:inline-block;width:100%;"></div>         
+    </body>
+</html>
